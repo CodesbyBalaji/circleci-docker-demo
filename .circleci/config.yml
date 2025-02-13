@@ -1,0 +1,15 @@
+version: 2.1
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.9
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker Image
+          command: docker build -t my-flask-app .
+      - run:
+          name: Test Docker Container
+          command: docker run -d -p 5000:5000 my-flask-app
